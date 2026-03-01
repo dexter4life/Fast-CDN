@@ -202,3 +202,63 @@ sysctl -w net.ipv4.tcp_max_syn_backlog=65535
 ## License
 
 MIT License - See LICENSE file for details.
+
+## Contributing
+
+Contributions are welcome! Here's how you can help:
+
+### Getting Started
+
+1. Fork the repository
+2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/Fast-CDN.git`
+3. Create a feature branch: `git checkout -b feature/your-feature-name`
+
+### Development Setup
+
+```bash
+# Install Rust if you haven't already
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Build the project
+cargo build
+
+# Run tests
+cargo test
+
+# Run with debug logging
+RUST_LOG=debug cargo run
+```
+
+### Code Style
+
+- Follow Rust's standard formatting (`cargo fmt`)
+- Run clippy for linting: `cargo clippy -- -D warnings`
+- Write tests for new features
+
+### Submitting Changes
+
+1. Push your changes to your fork
+2. Create a Pull Request against the `main` branch
+3. Ensure all tests pass and CI checks succeed
+4. Update documentation if needed
+
+### Reporting Issues
+
+- Use GitHub Issues for bug reports and feature requests
+- Include relevant details like Rust version, OS, and configuration
+
+---
+
+## About
+
+**Fast-CDN** is a high-performance CDN data plane written in Rust, optimized for S3-compatible storage backends. It provides efficient caching, request collapsing, and security features suitable for production workloads.
+
+Built with ❤️ by the open source community.
+
+### Key Highlights
+
+- 🚀 Blazing fast performance with Rust
+- 💾 Hybrid memory + disk caching
+- 🔒 Enterprise-grade security features
+- 📊 Full observability with Prometheus metrics
+- 🐳 Docker support for easy deployment
