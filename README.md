@@ -252,13 +252,3 @@ RUST_LOG=debug cargo run
 ## About
 
 **Fast-CDN** is a high-performance CDN data plane written in Rust, optimized for S3-compatible storage backends. It provides efficient caching, request collapsing, and security features suitable for production workloads.
-
-Built with ❤️ by the open source community.
-
-### Key Highlights
-
-- 🚀 Blazing fast performance with Rust
-- 💾 Hybrid memory + disk caching
-- 🔒 Enterprise-grade security features
-- 📊 Full observability with Prometheus metrics
-- 🐳 Docker support for easy deployment
