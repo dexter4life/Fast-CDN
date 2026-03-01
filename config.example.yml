@@ -1,0 +1,72 @@
+# CDN Engine Configuration Example
+# Copy to config.yml and adjust values
+
+server:
+  http_addr: "0.0.0.0:8080"
+  https_addr: "0.0.0.0:8443"
+  metrics_addr: "0.0.0.0:9090"
+  enable_http2: true
+  enable_http3: false
+  max_connections: 10000
+  read_timeout_secs: 30
+  write_timeout_secs: 60
+  graceful_shutdown_secs: 30
+  worker_threads: null  # Auto-detect based on CPU cores
+
+s3:
+  region: "us-east-1"
+  endpoint: "http://minio:9000"  # For MinIO, Cloudflare R2, etc.
+  access_key_id: null  # Set via CDN_S3_ACCESS_KEY_ID env var
+  secret_access_key: null  # Set via CDN_S3_SECRET_ACCESS_KEY env var
+  default_bucket: "assets"
+  path_style: true  # Use path-style for MinIO
+  connect_timeout_secs: 10
+  read_timeout_secs: 30
+  max_retries: 3
+  base_retry_delay_ms: 100
+  max_retry_delay_ms: 10000
+
+cache:
+  # Memory cache settings (TinyLFU)
+  memory_cache_size_mb: 512
+  memory_cache_max_items: 100000
+  default_ttl_secs: 3600
+
+  # Disk cache settings
+  disk_cache_path: "/var/cache/cdn"
+  disk_cache_size_mb: 10240  # 10 GB
+  disk_write_buffer_size: 65536
+
+  # Request collapsing (thundering herd protection)
+  enable_collapsing: true
+  collapse_timeout_secs: 30
+
+security:
+  # HMAC URL signing
+  hmac_secret: null  # Set via CDN_HMAC_SECRET env var (base64-encoded)
+  hmac_algorithm: "sha256"
+  signature_param_name: "sig"
+  expiry_param_name: "exp"
+  require_signed_urls: false
+
+  # Rate limiting
+  enable_rate_limiting: true
+  requests_per_second: 1000
+  burst_size: 5000
+  rate_limit_by_ip: true
+
+  # Other security settings
+  allowed_origins: []  # CORS: empty means allow all
+  max_request_body_size: 10485760  # 10 MB
+
+observability:
+  log_level: "info"
+  log_format: "json"  # "json" or "pretty"
+
+  # Metrics
+  enable_metrics: true
+  metrics_path: "/metrics"
+
+  # Tracing
+  enable_tracing: false
+  otlp_endpoint: null

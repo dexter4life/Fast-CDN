@@ -1,0 +1,133 @@
+[package]
+name = "cdn-engine"
+version = "0.1.0"
+edition = "2021"
+authors = ["FastPayD Team"]
+description = "Production-grade CDN engine optimized for S3-compatible backends"
+license = "MIT"
+repository = "https://github.com/dexter4life/fastpayd"
+
+[features]
+default = ["http2", "http3"]
+http2 = ["hyper/http2"]
+http3 = ["quinn", "rustls"]
+image-processing = ["image", "ravif", "webp"]
+
+[dependencies]
+# Async runtime
+tokio = { version = "1.35", features = ["full", "parking_lot"] }
+tokio-util = { version = "0.7", features = ["codec", "io"] }
+futures = "0.3"
+async-trait = "0.1"
+
+# HTTP server
+hyper = { version = "1.1", features = ["server", "http1", "http2"] }
+hyper-util = { version = "0.1", features = ["server", "tokio"] }
+http-body-util = "0.1"
+http = "1.0"
+tower = { version = "0.4", features = ["full"] }
+tower-http = { version = "0.5", features = ["trace", "cors", "compression-gzip", "compression-br"] }
+
+# HTTP/3 QUIC support
+quinn = { version = "0.11", optional = true }
+rustls = { version = "0.23", optional = true, features = ["ring"] }
+rustls-pemfile = "2.0"
+
+# TLS
+tokio-rustls = "0.26"
+rcgen = "0.12"
+
+# AWS S3 SDK
+aws-config = "1.1"
+aws-sdk-s3 = "1.12"
+aws-smithy-runtime-api = "1.1"
+aws-smithy-types = "1.1"
+aws-credential-types = "1.1"
+aws-sigv4 = "1.1"
+
+# HTTP client for custom S3 operations
+reqwest = { version = "0.11", features = ["stream", "rustls-tls"], default-features = false }
+
+# Caching
+moka = { version = "0.12", features = ["future", "sync"] }
+dashmap = "5.5"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# Security
+hmac = "0.12"
+sha2 = "0.10"
+hex = "0.4"
+base64 = "0.21"
+ring = "0.17"
+
+# Metrics & Observability
+prometheus = { version = "0.13", features = ["process"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["json", "env-filter"] }
+tracing-opentelemetry = "0.22"
+opentelemetry = { version = "0.21", features = ["trace"] }
+opentelemetry-prometheus = "0.14"
+
+# Image processing (optional)
+image = { version = "0.24", optional = true }
+ravif = { version = "0.11", optional = true }
+webp = { version = "0.2", optional = true }
+
+# Utilities
+bytes = "1.5"
+parking_lot = "0.12"
+once_cell = "1.19"
+thiserror = "1.0"
+anyhow = "1.0"
+url = "2.5"
+regex = "1.10"
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.6", features = ["v4", "serde"] }
+pin-project-lite = "0.2"
+
+# Configuration
+config = "0.14"
+dotenvy = "0.15"
+
+# CLI
+clap = { version = "4.4", features = ["derive", "env"] }
+
+# Circuit breaker
+failsafe = "1.2"
+
+
+# URL utilities
+humantime = "2.1"
+urlencoding = "2.1"
+
+[dev-dependencies]
+tokio-test = "0.4"
+wiremock = "0.5"
+criterion = { version = "0.5", features = ["async_tokio"] }
+tempfile = "3.9"
+fake = { version = "2.9", features = ["derive"] }
+proptest = "1.4"
+
+[[bin]]
+name = "cdn-engine"
+path = "src/main.rs"
+
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+opt-level = 3
+
+[profile.release-debug]
+inherits = "release"
+debug = true
+strip = false
+
+[lints.rust]
+unsafe_code = "warn"

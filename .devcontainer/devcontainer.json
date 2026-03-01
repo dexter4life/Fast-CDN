@@ -1,0 +1,58 @@
+{
+    "name": "CDN Engine Dev",
+    "dockerComposeFile": [
+        "../docker-compose.yml",
+        "docker-compose.devcontainer.yml"
+    ],
+    "service": "dev",
+    "workspaceFolder": "/workspace",
+    "shutdownAction": "stopCompose",
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": true,
+            "configureZshAsDefaultShell": true,
+            "installOhMyZsh": true,
+            "upgradePackages": true
+        },
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "vadimcn.vscode-lldb",
+                "eamodio.gitlens",
+                "codezombiech.gitignore",
+                "IronGeek.vscode-env",
+                "EditorConfig.EditorConfig",
+                "twxs.cmake"
+            ],
+            "settings": {
+                "rust-analyzer.check.command": "clippy",
+                "rust-analyzer.cargo.features": "all",
+                "editor.formatOnSave": true,
+                "[rust]": {
+                    "editor.defaultFormatter": "rust-lang.rust-analyzer"
+                }
+            }
+        }
+    },
+    "forwardPorts": [
+        8080,
+        8443,
+        9090
+    ],
+    "portsAttributes": {
+        "8080": {
+            "label": "HTTP Server"
+        },
+        "8443": {
+            "label": "HTTPS Server"
+        },
+        "9090": {
+            "label": "Metrics"
+        }
+    },
+    "postCreateCommand": "cargo fetch",
+    "remoteUser": "vscode"
+}
