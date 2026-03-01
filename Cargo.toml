@@ -2,10 +2,10 @@
 name = "cdn-engine"
 version = "0.1.0"
 edition = "2021"
-authors = ["FastPayD Team"]
+authors = ["Fast-CDN Team"]
 description = "Production-grade CDN engine optimized for S3-compatible backends"
 license = "MIT"
-repository = "https://github.com/dexter4life/fastpayd"
+repository = "https://github.com/dexter4life/Fast-CDN"
 
 [features]
 default = ["http2", "http3"]
