@@ -2,7 +2,7 @@
 name = "cdn-engine"
 version = "0.1.0"
 edition = "2021"
-authors = ["Fast-CDN Team"]
+authors = ["dexter4life@gmail.com"]
 description = "Production-grade CDN engine optimized for S3-compatible backends"
 license = "MIT"
 repository = "https://github.com/dexter4life/Fast-CDN"
